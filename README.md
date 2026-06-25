@@ -5,6 +5,9 @@ It has no login, database, or in-browser write access. The source of truth is th
 repository: edit local content files with Codex, validate them, commit, push, and
 let Vercel redeploy the static site.
 
+- Live site: <https://yolanda-book.vercel.app>
+- GitHub repo: <https://github.com/jsmjie/Yolanda-Book>
+
 ## Local Workflow
 
 ```bash
@@ -20,7 +23,11 @@ Open `http://localhost:4173`.
 2. Add the book entry to `content/books.json`.
 3. Run `npm test`.
 4. Commit and push to GitHub.
-5. Vercel rebuilds and republishes the site from the GitHub repo.
+5. Redeploy production:
+
+```bash
+npx vercel@latest deploy --prod --yes
+```
 
 ## Content Model
 
@@ -73,3 +80,10 @@ Use these settings when importing the GitHub repo into Vercel:
 - Install command: leave blank or use `npm install`
 
 The app is static, so no environment variables are required.
+
+To enable automatic deployments from GitHub pushes, connect the Vercel project to
+the repo after the Vercel GitHub App has access to `jsmjie/Yolanda-Book`:
+
+```bash
+npx vercel@latest git connect https://github.com/jsmjie/Yolanda-Book.git --yes
+```
