@@ -1,0 +1,27 @@
+{
+  "slug": "yolanda-starter",
+  "title": "Yolanda and the Book of Windows",
+  "subtitle": "A starter story for a living writing site",
+  "author": "Yolanda Book Studio",
+  "status": "published",
+  "summary": "Yolanda discovers that every window in her quiet house opens into a different unfinished story.",
+  "cover": {
+    "image": "assets/covers/yolanda-starter.svg",
+    "theme": "ink",
+    "accent": "#4f8f8b"
+  },
+  "chapters": [
+    {
+      "number": 1,
+      "title": "The Window That Remembered",
+      "file": "chapter-01.md"
+    },
+    {
+      "number": 2,
+      "title": "A Draft in the Rain",
+      "file": "chapter-02.md"
+    }
+  ],
+  "publishedAt": "2026-06-26",
+  "updatedAt": "2026-06-26"
+}

@@ -1,0 +1,8 @@
+{
+  "books": [
+    {
+      "slug": "yolanda-starter",
+      "path": "content/books/yolanda-starter/book.json"
+    }
+  ]
+}

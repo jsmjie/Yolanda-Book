@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Yolanda and the Book of Windows cover</title>
+  <desc id="desc">A stylized book cover with a glowing window and handwritten pages.</desc>
+  <rect width="1200" height="1600" fill="#f4efe4"/>
+  <rect x="96" y="104" width="1008" height="1392" rx="34" fill="#1e2528"/>
+  <rect x="154" y="166" width="892" height="1268" rx="18" fill="#f9f4e9"/>
+  <path d="M220 1005c134-74 270-87 409-38 121 43 238 38 351-15v276c-118 49-235 53-351 14-138-47-275-35-409 37z" fill="#4f8f8b" opacity=".88"/>
+  <path d="M278 370h644v426H278z" fill="#1e2528"/>
+  <path d="M320 412h244v342H320zM636 412h244v342H636z" fill="#f4efe4"/>
+  <path d="M320 583h560" stroke="#4f8f8b" stroke-width="20"/>
+  <path d="M564 412v342M636 412v342" stroke="#4f8f8b" stroke-width="14"/>
+  <circle cx="600" cy="584" r="106" fill="#e8b14d" opacity=".9"/>
+  <path d="M370 1135c82-34 166-41 252-21 64 15 130 12 198-10" fill="none" stroke="#1e2528" stroke-width="18" stroke-linecap="round"/>
+  <path d="M400 1195c72-24 145-27 220-9 74 18 144 14 210-12" fill="none" stroke="#1e2528" stroke-width="13" stroke-linecap="round" opacity=".75"/>
+  <text x="600" y="257" text-anchor="middle" font-family="Georgia, serif" font-size="74" fill="#1e2528">Yolanda</text>
+  <text x="600" y="1340" text-anchor="middle" font-family="Georgia, serif" font-size="42" fill="#1e2528">The Book of Windows</text>
+</svg>
