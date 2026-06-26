@@ -57,6 +57,10 @@ Each book has a `book.json` file:
 }
 ```
 
+Every book must include a cover image. Store cover assets in `assets/covers/`
+and reference them from `cover.image` with a repo-root-relative path, for example
+`assets/covers/example-book.svg`.
+
 Only books with `status: "published"` are listed when at least one published book
 exists. Draft files remain in GitHub but stay out of the public catalog list.
 
@@ -68,7 +72,7 @@ exists. Draft files remain in GitHub but stay out of the public catalog list.
 - Book slugs are unique lowercase kebab-case.
 - Book metadata has required fields.
 - Chapter files exist and contain publishable text.
-- Optional cover images exist.
+- Cover images are declared and exist.
 
 ## Vercel Settings
 

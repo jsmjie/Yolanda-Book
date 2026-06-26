@@ -127,14 +127,16 @@ async function validateBook(rootPath, entry, seenSlugs, index) {
     }
   }
 
-  if (book.cover?.image) {
-    if (!safeRelativePath(book.cover.image)) {
-      errors.push(`${entry.path}: cover.image must be a safe relative path`);
-    } else {
-      const imagePath = fromRoot(rootPath, book.cover.image);
-      if (!(await fileExists(imagePath))) {
-        errors.push(`${entry.path}: missing cover image ${book.cover.image}`);
-      }
+  if (!book.cover || typeof book.cover !== "object") {
+    errors.push(`${entry.path}: cover.image is required`);
+  } else if (!book.cover.image) {
+    errors.push(`${entry.path}: cover.image is required`);
+  } else if (!safeRelativePath(book.cover.image)) {
+    errors.push(`${entry.path}: cover.image must be a safe relative path`);
+  } else {
+    const imagePath = fromRoot(rootPath, book.cover.image);
+    if (!(await fileExists(imagePath))) {
+      errors.push(`${entry.path}: missing cover image ${book.cover.image}`);
     }
   }
 
