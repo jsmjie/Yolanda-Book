@@ -1,6 +1,6 @@
-# Yolanda Book
+# Yolanda's Bookshelf
 
-Yolanda Book is a small production MVP for publishing books from GitHub to Vercel.
+Yolanda's Bookshelf is a small production MVP for publishing books from GitHub to Vercel.
 It has no login, database, or in-browser write access. The source of truth is this
 repository: edit local content files with Codex, validate them, commit, push, and
 let Vercel redeploy the static site.
@@ -41,7 +41,7 @@ Each book has a `book.json` file:
   "slug": "example-book",
   "title": "Example Book",
   "subtitle": "A short subtitle",
-  "author": "Yolanda Book Studio",
+  "author": "Yolanda",
   "status": "published",
   "summary": "One sentence summary.",
   "cover": {

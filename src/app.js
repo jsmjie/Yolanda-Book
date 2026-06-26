@@ -168,10 +168,10 @@ function renderShell(book, chapter, chapterMarkdown) {
   app.innerHTML = `
     <aside class="library-pane" aria-label="Book library">
       <div class="brand-lockup">
-        <span class="brand-mark">YB</span>
+        <span class="brand-mark">Y</span>
         <span>
-          <strong>Yolanda Book</strong>
-          <small>GitHub-published stories</small>
+          <strong>Yolanda's Bookshelf</strong>
+          <small>Stories from GitHub</small>
         </span>
       </div>
 
@@ -250,7 +250,7 @@ function renderShell(book, chapter, chapterMarkdown) {
 function renderError(message) {
   app.innerHTML = `
     <main class="error-view">
-      <h1>Yolanda Book could not load.</h1>
+      <h1>Yolanda's Bookshelf could not load.</h1>
       <p>${escapeHtml(message)}</p>
     </main>
   `;

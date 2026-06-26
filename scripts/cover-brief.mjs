@@ -64,7 +64,7 @@ export async function createCoverBrief(
   const outputPath = book.cover?.image ?? `assets/covers/${book.slug}.png`;
   const prompt = [
     "Use case: illustration-story",
-    "Asset type: public book cover for the Yolanda Book website",
+    "Asset type: public book cover for the Yolanda's Bookshelf website",
     `Cover mode: ${mode}`,
     `Required output path: ${outputPath}`,
     `Book title: ${book.title}`,
