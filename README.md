@@ -20,10 +20,13 @@ Open `http://localhost:4173`.
 ## Publish Workflow
 
 1. Add or edit a book under `content/books/<book-slug>/`.
-2. Add the book entry to `content/books.json`.
-3. Run `npm test`.
-4. Commit and push to GitHub.
-5. Redeploy production:
+2. Add or choose the cover:
+   - Default: ask Codex to generate a cover from the book content.
+   - User-specified: copy the user-provided cover into `assets/covers/`.
+3. Add the book entry to `content/books.json`.
+4. Run `npm test`.
+5. Commit and push to GitHub.
+6. Redeploy production:
 
 ```bash
 npx vercel@latest deploy --prod --yes
@@ -42,6 +45,7 @@ Each book has a `book.json` file:
   "status": "published",
   "summary": "One sentence summary.",
   "cover": {
+    "mode": "auto",
     "image": "assets/covers/example-book.svg",
     "accent": "#4f8f8b"
   },
@@ -57,9 +61,22 @@ Each book has a `book.json` file:
 }
 ```
 
-Every book must include a cover image. Store cover assets in `assets/covers/`
-and reference them from `cover.image` with a repo-root-relative path, for example
-`assets/covers/example-book.svg`.
+Every book must include a cover image. Store cover assets in `assets/covers/` and
+reference them from `cover.image` with a repo-root-relative path, for example
+`assets/covers/example-book.svg`. `cover.mode` can be:
+
+- `auto`: Codex generated the cover from the book content. This is the default
+  when `cover.mode` is omitted.
+- `user`: the user supplied or selected the exact cover asset.
+
+For automatic covers, generate a Codex/image brief from the book content:
+
+```bash
+npm run cover:brief -- example-book
+```
+
+Codex should use that brief to create the cover asset, save it under
+`assets/covers/`, and set `cover.mode` to `auto`.
 
 Only books with `status: "published"` are listed when at least one published book
 exists. Draft files remain in GitHub but stay out of the public catalog list.
@@ -73,6 +90,7 @@ exists. Draft files remain in GitHub but stay out of the public catalog list.
 - Book metadata has required fields.
 - Chapter files exist and contain publishable text.
 - Cover images are declared and exist.
+- Cover mode is either `auto` or `user`; omitted mode is treated as `auto`.
 
 ## Vercel Settings
 

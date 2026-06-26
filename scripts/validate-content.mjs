@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const VALID_STATUSES = new Set(["draft", "published"]);
+const VALID_COVER_MODES = new Set(["auto", "user"]);
 
 function fromRoot(rootUrlOrPath, relativePath = "") {
   const rootPath =
@@ -131,6 +132,11 @@ async function validateBook(rootPath, entry, seenSlugs, index) {
     errors.push(`${entry.path}: cover.image is required`);
   } else if (!book.cover.image) {
     errors.push(`${entry.path}: cover.image is required`);
+  } else if (
+    book.cover.mode !== undefined &&
+    !VALID_COVER_MODES.has(book.cover.mode)
+  ) {
+    errors.push(`${entry.path}: cover.mode must be auto or user`);
   } else if (!safeRelativePath(book.cover.image)) {
     errors.push(`${entry.path}: cover.image must be a safe relative path`);
   } else {
@@ -140,7 +146,14 @@ async function validateBook(rootPath, entry, seenSlugs, index) {
     }
   }
 
-  return { book: { ...book, path: entry.path }, errors };
+  return {
+    book: {
+      ...book,
+      path: entry.path,
+      cover: book.cover ? { mode: "auto", ...book.cover } : book.cover
+    },
+    errors
+  };
 }
 
 export async function validateContent(rootUrlOrPath = pathToFileURL(`${process.cwd()}/`)) {

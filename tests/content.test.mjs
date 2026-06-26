@@ -9,19 +9,30 @@ async function writeJson(filePath, value) {
   await writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`);
 }
 
-async function makeBookFixture(book) {
+async function makeBookFixture(book, options = {}) {
+  const slug = options.slug ?? book.slug ?? "fixture-book";
   const root = await mkdtemp(path.join(tmpdir(), "yolanda-book-test-"));
-  const bookDir = path.join(root, "content/books/missing-cover");
+  const bookDir = path.join(root, `content/books/${slug}`);
 
   await mkdir(bookDir, { recursive: true });
   await writeJson(path.join(root, "content/books.json"), {
     books: [
       {
-        slug: "missing-cover",
-        path: "content/books/missing-cover/book.json"
+        slug,
+        path: `content/books/${slug}/book.json`
       }
     ]
   });
+
+  if (options.coverFile) {
+    const coverPath = path.join(root, options.coverFile);
+    await mkdir(path.dirname(coverPath), { recursive: true });
+    await writeFile(
+      coverPath,
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 30"><rect width="20" height="30"/></svg>\n'
+    );
+  }
+
   await writeJson(path.join(bookDir, "book.json"), book);
   await writeFile(
     path.join(bookDir, "chapter-01.md"),
@@ -66,6 +77,70 @@ describe("content validation", () => {
     assert.ok(
       result.errors.some((error) => error.includes("cover.image is required")),
       `Expected cover error, received: ${result.errors.join("; ")}`
+    );
+  });
+
+  it("defaults cover mode to auto when omitted", async () => {
+    const root = await makeBookFixture(
+      {
+        slug: "fixture-book",
+        title: "Fixture Book",
+        author: "Yolanda Book Studio",
+        status: "published",
+        summary: "A fixture book that relies on the default Codex cover mode.",
+        cover: {
+          image: "assets/covers/fixture-book.svg"
+        },
+        chapters: [
+          {
+            number: 1,
+            title: "Start",
+            file: "chapter-01.md"
+          }
+        ],
+        publishedAt: "2026-06-26",
+        updatedAt: "2026-06-26"
+      },
+      { coverFile: "assets/covers/fixture-book.svg" }
+    );
+
+    const result = await validateContent(root);
+
+    assert.equal(result.ok, true);
+    assert.equal(result.books[0].cover.mode, "auto");
+  });
+
+  it("rejects an unsupported cover mode", async () => {
+    const root = await makeBookFixture(
+      {
+        slug: "fixture-book",
+        title: "Fixture Book",
+        author: "Yolanda Book Studio",
+        status: "published",
+        summary: "A fixture book with an invalid cover mode.",
+        cover: {
+          mode: "stock",
+          image: "assets/covers/fixture-book.svg"
+        },
+        chapters: [
+          {
+            number: 1,
+            title: "Start",
+            file: "chapter-01.md"
+          }
+        ],
+        publishedAt: "2026-06-26",
+        updatedAt: "2026-06-26"
+      },
+      { coverFile: "assets/covers/fixture-book.svg" }
+    );
+
+    const result = await validateContent(root);
+
+    assert.equal(result.ok, false);
+    assert.ok(
+      result.errors.some((error) => error.includes("cover.mode must be auto or user")),
+      `Expected cover mode error, received: ${result.errors.join("; ")}`
     );
   });
 });

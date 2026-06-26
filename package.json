@@ -7,6 +7,7 @@
     "dev": "python3 -m http.server 4173",
     "test": "node --test tests/*.test.mjs",
     "validate": "node scripts/validate-content.mjs",
+    "cover:brief": "node scripts/cover-brief.mjs",
     "build": "npm run validate"
   }
 }
